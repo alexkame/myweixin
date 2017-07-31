@@ -24,6 +24,7 @@ import com.thinkgem.jeesite.common.web.BaseController;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.thinkgem.jeesite.weixin.utils.weixinStatic;
 import com.thinkgem.jeesite.weixin.utils.weixinUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
@@ -87,7 +88,7 @@ public class wxController extends BaseController {
             WxMpXmlMessage xmlMessage = (WxMpXmlMessage) xs.fromXML(request.getInputStream());
 
             if (xmlMessage.getEvent() != null && xmlMessage.getEvent().equals("subscribe")) {
-                String result ="欢迎关注灰名单征审公众号，在这里你可以免费查询自己是否在灰名单中。";
+                String result ="欢迎关注灰名单征审公众号，在这里你可以查询自己是否在灰名单中。主页地址:http://camelot.xicp.net/weixin/index.jsp";
                 response.getWriter().write(resultMessage(xmlMessage,result));
 
             } else if (xmlMessage.getEvent() != null && xmlMessage.getEvent().equals("unsubscribe")) {
@@ -134,7 +135,14 @@ public class wxController extends BaseController {
         return jdCheat.getResult().getText();
     }
 
-
+    /**
+     * 跳转到主页
+     * @return
+     */
+    @RequestMapping("toIndex")
+    public String toIndex(){
+        return "/weixin/index";
+    }
 
 
 
